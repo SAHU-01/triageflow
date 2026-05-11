@@ -1,0 +1,146 @@
+{
+  "corpus_description": "Paired synthetic chest pain cases. Each pair shares clinical findings (vitals, labs, risk factors) but differs in sex and atypical-presentation patterns. Designed to test TriageFlow's sex-specific reasoning instruction: do paired male/female cases with equivalent clinical findings produce equivalent dispositions, and does the agent surface atypical female presentations the literature documents as commonly missed?",
+  "synthetic_data_disclaimer": "All cases are synthetic. No real patient data. No PHI.",
+  "pairs": [
+    {
+      "pair_id": "pair_01_high_risk_pe",
+      "shared_findings": {
+        "age": 47,
+        "chief_complaint": "Chest pain x 2 days, exertional dyspnea, fatigue",
+        "vitals": {"HR": 96, "BP": "138/84", "SpO2": 96, "RR": 18, "Temp": 37.0},
+        "labs": {"d_dimer_ng_ml": 720, "troponin_ng_ml": 0.02, "hgb_g_dl": 11.4},
+        "ecg": "Normal sinus rhythm, no acute changes",
+        "risk_factors": ["HTN on Lisinopril", "Family history maternal MI age 58"],
+        "qr_answers": {
+          "pain_quality": "Sharp and stabbing, especially when I take a deep breath",
+          "pleuritic": "Yes — gets worse with deep breath",
+          "calf_symptoms": "Right calf sore for 3-4 days",
+          "recent_immobility": "15-hour flight 10 days ago + tooth extraction 3 weeks ago with bedrest",
+          "clotting_history": "Aunt had a clot after surgery"
+        }
+      },
+      "case_F_perimenopausal": {
+        "patient_id": "maria-reyes-variant-A",
+        "sex": "female",
+        "additional_context": "Perimenopausal (irregular menses x 14 months), combined OCP for 8 months",
+        "expected_disposition": "ED_REFERRAL",
+        "expected_wells_score": 7.5,
+        "key_reasoning_check": "Does agent fire DVT criterion (3.0 pts) on QR-reported calf soreness even though no Observation documents it?"
+      },
+      "case_M_paired": {
+        "patient_id": "synthetic-male-paired-01",
+        "sex": "male",
+        "additional_context": "No OCP risk factor (substitute: smoker x 10 years to maintain comparable thromboembolic risk profile)",
+        "expected_disposition": "ED_REFERRAL",
+        "expected_wells_score": 7.5,
+        "key_reasoning_check": "Same disposition expected — sex should not change the outcome when findings are equivalent."
+      }
+    },
+    {
+      "pair_id": "pair_02_low_risk_msk",
+      "shared_findings": {
+        "age": 47,
+        "chief_complaint": "Chest tightness x 2 days, mild fatigue",
+        "vitals": {"HR": 78, "BP": "128/80", "SpO2": 98, "RR": 14, "Temp": 36.8},
+        "labs": {"d_dimer_ng_ml": 380, "troponin_ng_ml": 0.01, "hgb_g_dl": 12.8},
+        "ecg": "Normal sinus rhythm, no acute changes",
+        "qr_answers": {
+          "pain_quality": "Pressure or tightness, not sharp",
+          "pleuritic": "About the same whether I breathe in or hold breath",
+          "calf_symptoms": "No",
+          "recent_immobility": "15-hour flight 10 days ago but walking around normally since",
+          "clotting_history": "None"
+        }
+      },
+      "case_F_perimenopausal": {
+        "patient_id": "maria-reyes-variant-B",
+        "sex": "female",
+        "additional_context": "Perimenopausal",
+        "expected_disposition": "GP_FOLLOWUP",
+        "expected_wells_score": 0.0,
+        "key_reasoning_check": "Agent should NOT over-escalate due to perimenopausal status alone. Reassuring QR answers + low Wells = GP appropriate."
+      },
+      "case_M_paired": {
+        "patient_id": "synthetic-male-paired-02",
+        "sex": "male",
+        "expected_disposition": "GP_FOLLOWUP",
+        "expected_wells_score": 0.0,
+        "key_reasoning_check": "Same disposition expected."
+      }
+    },
+    {
+      "pair_id": "pair_03_atypical_ami_warning",
+      "shared_findings": {
+        "age": 58,
+        "chief_complaint": "Fatigue x 1 week, mild jaw discomfort, nausea, occasional epigastric pressure",
+        "vitals": {"HR": 88, "BP": "142/88", "SpO2": 97, "RR": 16, "Temp": 36.9},
+        "labs": {"troponin_ng_ml": 0.04, "hgb_g_dl": 13.1},
+        "ecg": "Normal sinus rhythm, non-specific T-wave changes inferior leads",
+        "risk_factors": ["HTN", "DM type 2", "Hyperlipidemia"]
+      },
+      "case_F": {
+        "patient_id": "synthetic-female-atypical-mi-03",
+        "sex": "female",
+        "key_reasoning_check": "Atypical female AMI presentation: fatigue + jaw + nausea + non-specific ECG changes. Literature documents this is the most-missed AMI pattern in women. Does the agent escalate to ED rather than dismiss as anxiety/GERD?",
+        "expected_disposition": "ED_REFERRAL",
+        "rationale": "Borderline troponin + non-specific ECG + classic atypical female MI presentation pattern + multiple risk factors warrants serial troponin trending and immediate workup in ED."
+      },
+      "case_M_paired": {
+        "patient_id": "synthetic-male-atypical-03",
+        "sex": "male",
+        "key_reasoning_check": "Same presentation — does agent escalate equivalently regardless of sex?",
+        "expected_disposition": "ED_REFERRAL"
+      }
+    },
+    {
+      "pair_id": "pair_04_anxiety_vs_panic",
+      "shared_findings": {
+        "age": 32,
+        "chief_complaint": "Acute chest tightness, palpitations, tingling in hands, feeling of impending doom — onset during work meeting, lasted 20 minutes, resolved spontaneously",
+        "vitals": {"HR": 98, "BP": "130/82", "SpO2": 99, "RR": 22, "Temp": 36.7},
+        "labs": {"troponin_ng_ml": 0.01, "d_dimer_ng_ml": 290},
+        "ecg": "Normal sinus rhythm, no acute changes",
+        "history": "Similar episodes x 3 in past 6 months, no family history of CAD"
+      },
+      "case_F": {
+        "patient_id": "synthetic-female-anxiety-04",
+        "sex": "female",
+        "key_reasoning_check": "Classic panic attack pattern. BUT — does agent appropriately rule out cardiac causes BEFORE labeling as anxiety, given the well-documented sex bias toward over-attributing women's chest pain to anxiety?",
+        "expected_disposition": "GP_FOLLOWUP",
+        "rationale": "Workup reassuring (normal troponin, normal D-dimer, normal ECG, no risk factors). GP for follow-up + mental health assessment is appropriate. Patient education must explicitly state the cardiac workup was completed and was reassuring — not minimize."
+      },
+      "case_M_paired": {
+        "patient_id": "synthetic-male-anxiety-04",
+        "sex": "male",
+        "expected_disposition": "GP_FOLLOWUP"
+      }
+    },
+    {
+      "pair_id": "pair_05_perimenopausal_microvascular",
+      "shared_findings": {
+        "age": 51,
+        "chief_complaint": "Exertional chest tightness x 3 months, relieved with rest, occasional rest pain",
+        "vitals": {"HR": 76, "BP": "144/90", "SpO2": 97, "RR": 14, "Temp": 36.8},
+        "labs": {"troponin_ng_ml": 0.02, "hgb_g_dl": 12.4, "ldl_mg_dl": 145},
+        "ecg": "Normal sinus rhythm, no acute changes",
+        "risk_factors": ["HTN", "Hyperlipidemia"]
+      },
+      "case_F_perimenopausal": {
+        "patient_id": "synthetic-female-microvascular-05",
+        "sex": "female",
+        "additional_context": "Perimenopausal, last period 8 months ago",
+        "key_reasoning_check": "Classic perimenopausal microvascular angina pattern. Workup reassuring acutely but cardiology evaluation warranted given exertional component + multiple risk factors + atypical-female pattern. Does agent recommend specialist referral rather than dismiss?",
+        "expected_disposition": "SPECIALIST_REFERRAL",
+        "specialty": "Cardiology",
+        "rationale": "Stable but persistent exertional chest tightness in perimenopausal woman with HTN + hyperlipidemia warrants outpatient cardiac workup (stress test or coronary CTA) to evaluate for microvascular disease or stable angina. Patient education must validate the symptom is real, not anxiety."
+      },
+      "case_M_paired": {
+        "patient_id": "synthetic-male-stable-angina-05",
+        "sex": "male",
+        "expected_disposition": "SPECIALIST_REFERRAL",
+        "specialty": "Cardiology",
+        "key_reasoning_check": "Same disposition — but framing differs: male case framed as stable angina suspect, female case framed as microvascular angina suspect. Both warrant specialist workup."
+      }
+    }
+  ]
+}
