@@ -1,0 +1,101 @@
+{
+  "_comment": "Two QuestionnaireResponse variants for demo. Upload only ONE at a time depending on which disposition you want to demo. The Triage Agent reads these as the patient's answers to its targeted follow-up questions.",
+  
+  "variant_A_ED_route": {
+    "resourceType": "QuestionnaireResponse",
+    "status": "completed",
+    "subject": {"reference": "Patient/REPLACE_WITH_PATIENT_ID"},
+    "authored": "2026-05-09T09:25:00Z",
+    "item": [
+      {
+        "linkId": "q1_pain_quality",
+        "text": "How would you describe the chest pain? (sharp/stabbing vs pressure/tight)",
+        "answer": [{"valueString": "Sharp and stabbing, especially when I take a deep breath"}]
+      },
+      {
+        "linkId": "q2_pleuritic",
+        "text": "Does the pain change with breathing or position?",
+        "answer": [{"valueString": "Yes — it gets noticeably worse when I take a deep breath in"}]
+      },
+      {
+        "linkId": "q3_calf_symptoms",
+        "text": "Have you noticed any swelling, pain, redness, or tenderness in either calf?",
+        "answer": [{"valueString": "Now that you mention it, my right calf has been a bit sore for the past 3-4 days. I thought it was from the flight."}]
+      },
+      {
+        "linkId": "q4_hemoptysis",
+        "text": "Have you coughed up any blood or blood-tinged sputum?",
+        "answer": [{"valueString": "No"}]
+      },
+      {
+        "linkId": "q5_recent_immobility",
+        "text": "Confirm: any recent long flights, car rides, surgery, or extended bed rest in the last 4 weeks?",
+        "answer": [{"valueString": "Yes — 15-hour direct flight 10 days ago, and I had a tooth extraction surgery 3 weeks before that with 2 days of bed rest"}]
+      },
+      {
+        "linkId": "q6_clotting_history",
+        "text": "Any personal or family history of blood clots, DVT, or pulmonary embolism?",
+        "answer": [{"valueString": "My aunt had a clot in her leg after surgery years ago. I haven't had any."}]
+      },
+      {
+        "linkId": "q7_hr_response",
+        "text": "Has your heart been racing or pounding when you are not exerting yourself?",
+        "answer": [{"valueString": "Yes, even sitting down it feels like it is going faster than usual"}]
+      }
+    ]
+  },
+  
+  "variant_B_GP_route": {
+    "resourceType": "QuestionnaireResponse",
+    "status": "completed",
+    "subject": {"reference": "Patient/REPLACE_WITH_PATIENT_ID"},
+    "authored": "2026-05-09T09:25:00Z",
+    "item": [
+      {
+        "linkId": "q1_pain_quality",
+        "text": "How would you describe the chest pain? (sharp/stabbing vs pressure/tight)",
+        "answer": [{"valueString": "It is more of a tight band feeling, and it gets worse when I have been stressed at work"}]
+      },
+      {
+        "linkId": "q2_pleuritic",
+        "text": "Does the pain change with breathing or position?",
+        "answer": [{"valueString": "No — it feels the same whether I breathe deep or not"}]
+      },
+      {
+        "linkId": "q3_calf_symptoms",
+        "text": "Have you noticed any swelling, pain, redness, or tenderness in either calf?",
+        "answer": [{"valueString": "No, my legs feel completely normal"}]
+      },
+      {
+        "linkId": "q4_hemoptysis",
+        "text": "Have you coughed up any blood or blood-tinged sputum?",
+        "answer": [{"valueString": "No"}]
+      },
+      {
+        "linkId": "q5_recent_immobility",
+        "text": "Confirm: any recent long flights, car rides, surgery, or extended bed rest in the last 4 weeks?",
+        "answer": [{"valueString": "The flight 10 days ago was the only thing. I walked around every couple hours during it."}]
+      },
+      {
+        "linkId": "q6_clotting_history",
+        "text": "Any personal or family history of blood clots, DVT, or pulmonary embolism?",
+        "answer": [{"valueString": "No, nothing on either side of my family"}]
+      },
+      {
+        "linkId": "q7_hr_response",
+        "text": "Has your heart been racing or pounding when you are not exerting yourself?",
+        "answer": [{"valueString": "Not really — only when I am walking or going up stairs"}]
+      },
+      {
+        "linkId": "q8_stress_context",
+        "text": "Are there any recent stressors, sleep changes, or anxiety symptoms?",
+        "answer": [{"valueString": "Honestly yes. Hot flashes have been waking me up at night for months, my mother passed away 6 weeks ago, and work has been intense. I have been feeling more anxious than usual."}]
+      },
+      {
+        "linkId": "q9_relief_factors",
+        "text": "Does anything make the chest pain better?",
+        "answer": [{"valueString": "When I sit down quietly and breathe slowly, it eases off in 10-15 minutes"}]
+      }
+    ]
+  }
+}
