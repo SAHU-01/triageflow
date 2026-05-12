@@ -117,6 +117,14 @@ risk score, key findings. FHIR Context Extension propagates patient
 context across the entire chain.
 ```
 
+### Architectural pattern: data-source independence
+
+The Triage Reasoner's system prompt accepts patient-reported QuestionnaireResponse data from either FHIR tool retrieval or inline prompt injection — both paths are treated as equivalent first-class clinical data sources.
+
+This is deliberate. Real clinical AI deployments rarely have a single canonical data path. Patient-reported data arrives via intake tablets writing to FHIR, care coordinator notes, referral letters, mobile app responses synced asynchronously, and voice-AI intake workflows. A clinical reasoning agent locked to one tool's one query path is brittle.
+
+TriageFlow's prompt-level design makes the agent portable across integrating workflows. The same Triage Reasoner produces identical Wells score reasoning whether QR data is fetched by `GetPatientData`, fetched by a custom MCP server, attached to a multi-agent A2A payload, or written into the prompt by an upstream intake system. What matters clinically is provenance and authority — which the audit substrate captures via FHIR resource IDs and QR linkIds in every output. The retrieval path is plumbing.
+
 ## Repo layout
 
 ```
